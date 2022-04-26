@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
     };
 
     ngOnInit() {
-
+/*
         this.pessoaService.countAll().subscribe(res => {
             this.quantidadeTotalDeCandidatos = res;
             if (this.quantidadeTotalDeCandidatos === 0) {
@@ -83,5 +83,9 @@ export class DashboardComponent implements OnInit {
 
             }
         });
+
+ */
     }
+
+
 }

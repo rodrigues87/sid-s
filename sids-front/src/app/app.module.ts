@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ImportComponent } from './import/import.component';
 import {ImportModule} from './import/import.module';
+import {WebSocketService} from './service/web-socket-service.service';
 
 @NgModule({
   imports: [
@@ -27,7 +28,7 @@ import {ImportModule} from './import/import.module';
     ImportComponent,
 
   ],
-  providers: [],
+  providers: [WebSocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

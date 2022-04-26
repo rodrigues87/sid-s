@@ -7,6 +7,7 @@ import com.sids.jpaInterfaces.QuantidadeDoadoresPorTipoSanguineo;
 import com.sids.models.Pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
             "     tipo_sanguineo t", nativeQuery = true)
     List<QuantidadeDoadoresPorTipoSanguineo> findQuantidadeDoadoresPorTipoSanguineo();
 
+    @Async
     @Query(value = "select\n" +
             "    COUNT(p.tipo_sanguineo_id)\n" +
             "from pessoa p where TIMESTAMPDIFF(year, data_nasc, now()) BETWEEN 16 AND 69\n" +

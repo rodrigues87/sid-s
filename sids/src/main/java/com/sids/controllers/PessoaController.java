@@ -5,18 +5,27 @@ import com.sids.dtos.PessoaDto;
 import com.sids.models.Pessoa;
 import com.sids.services.PessoaService;
 import lombok.SneakyThrows;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/pessoas")
 @CrossOrigin("http://localhost:4200/")
 public class PessoaController {
+
+
 
     @Autowired
     PessoaService pessoaService;
@@ -38,7 +47,10 @@ public class PessoaController {
     @GetMapping("/quantidadeDoadoresAptos")
     public ResponseEntity<Object> quantidadeDoadoresAptos(){
 
-        return new ResponseEntity<>(pessoaService.quantidadeDoadoresAptos(), HttpStatus.OK);
+        int quantidadeDoadoresAptos = pessoaService.quantidadeDoadoresAptos();
+
+
+        return new ResponseEntity<>(quantidadeDoadoresAptos, HttpStatus.OK);
 
     }
 
@@ -50,7 +62,11 @@ public class PessoaController {
     @SneakyThrows
     public ResponseEntity<Object> save(@RequestBody PessoaDto pessoaDto){
 
-        return new ResponseEntity<>(pessoaService.save(pessoaDto), HttpStatus.CREATED);
+        Object pessoa = pessoaService.save(pessoaDto);
+
+
+
+        return new ResponseEntity<>(pessoa, HttpStatus.CREATED);
 
     }
 
@@ -128,11 +144,6 @@ public class PessoaController {
         return  new ResponseEntity<>(pessoaService.getQuantidadePossiveisDoadores(), HttpStatus.OK);
     }
 
-    @GetMapping("/get-quantidade-possiveis-doadores-push")
-    public ResponseEntity<Object> getQuantidadePossiveisDoadoresPush(){
-
-        return  new ResponseEntity<>(pessoaService.getQuantidadePossiveisDoadores(), HttpStatus.OK);
-    }
 
     @PostMapping("/uploadFileCandidatos")
     public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {

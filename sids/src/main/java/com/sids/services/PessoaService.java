@@ -16,6 +16,7 @@ import com.sids.tools.Constantes;
 import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +25,9 @@ import java.util.*;
 
 @Service
 public class PessoaService {
+
+    @Autowired
+    private SimpMessagingTemplate template;
 
     @Autowired
     PessoaRepository pessoaRepository;
@@ -66,6 +70,12 @@ public class PessoaService {
         TipoSanguineo tipoSanguineo = tipoSanguineoService.findByNome(pessoaDto.getTipoSanguineo());
 
         pessoa.setTipoSanguineo(tipoSanguineo);
+
+
+        int quantidadeDoadoresAptos = this.quantidadeDoadoresAptos();
+
+        template.convertAndSend("/topic/quantidadeDoadoresAptos", quantidadeDoadoresAptos);
+
 
         return pessoaRepository.save(pessoa);
     }
