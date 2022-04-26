@@ -10,6 +10,7 @@
 
 # IDEs and editors
 /.idea
+/.jpb
 .project
 .classpath
 .c9/
