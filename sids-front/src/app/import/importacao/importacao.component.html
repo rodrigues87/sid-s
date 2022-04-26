@@ -1,0 +1,40 @@
+
+
+<div class="card card-chart text-center " >
+    <div class="card-header card-header-danger">
+
+        <h2 class="card-title">Importação de arquivo</h2>
+    </div>
+    <div class="card-body text-center">
+        <div *ngIf="aguardar" class="text-center">
+            <h3>Aguarde</h3>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+
+        </div>
+
+        <div *ngIf="!aguardar">
+            <input type="file" class="file-input"
+                   (change)="onFileSelected($event)" #fileUpload>
+
+            <div class="file-upload">
+
+
+                <h4>
+                    {{fileName || "Ainda não existe arquivo importando clique abaixo"}}
+
+                </h4>
+
+
+                <img src="assets/img/dnd/ic-upload-file.svg" (click)="fileUpload.click()" style="cursor: pointer">
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+

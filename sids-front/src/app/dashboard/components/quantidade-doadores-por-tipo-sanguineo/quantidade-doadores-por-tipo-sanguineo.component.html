@@ -1,0 +1,22 @@
+<div class="row">
+        <div class="col-md" *ngFor="let tipoDoador of quantidadeDoadoresPorTipoSanguineolist ">
+            <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                    <div class="card-icon text-center title-card">
+                        <H3>{{tipoDoador.tipoSanguineo}}</H3>
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+                    <h3 class="card-title text-left">
+                        {{tipoDoador.quantidadeDeDoadores}}
+                        <small>Doadores</small>
+                    </h3>
+
+                </div>
+            </div>
+        </div>
+
+</div>
+
