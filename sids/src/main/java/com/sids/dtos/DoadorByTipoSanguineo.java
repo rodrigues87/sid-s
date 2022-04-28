@@ -1,6 +1,6 @@
 package com.sids.dtos;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
 public class DoadorByTipoSanguineo {

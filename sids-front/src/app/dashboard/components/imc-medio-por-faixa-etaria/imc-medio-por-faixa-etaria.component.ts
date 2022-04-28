@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CandidatosPorEstado} from '../../models/candidatos-por-estado.model';
 import {PessoaService} from '../../services/pessoa.service';
 import * as Chartist from 'chartist';
 import {PessoaImcMedioFaixaEtaria} from '../../models/pessoa-imc-medio-faixa-etaria-dto.model';
+import {DashboardComponent} from '../../dashboard.component';
 
 @Component({
     selector: 'app-imc-medio-por-faixa-etaria',
@@ -15,13 +15,16 @@ export class ImcMedioPorFaixaEtariaComponent implements OnInit {
     private labels: string[] = [];
     private series: number[] = [];
 
-    constructor(private pessoaService: PessoaService) {
+    constructor(private pessoaService: PessoaService,
+                private dashboardComponent: DashboardComponent) {
     }
 
     ngOnInit(): void {
 
 
         this.pessoaService.getImcMedioPorFaixaEtaria().subscribe(res => {
+            this.labels = [];
+            this.series = [];
             this.pessoaImcMedioFaixaEtariaList = res;
 
             this.pessoaImcMedioFaixaEtariaList.forEach(pessoaImcMedioFaixaEtaria => {
@@ -50,46 +53,14 @@ export class ImcMedioPorFaixaEtariaComponent implements OnInit {
 
             const dailySalesChart = new Chartist.Bar('#websiteViewsChart', dataDailySalesChart, optionsDailySalesChart);
 
-            this.startAnimationForLineChart(dailySalesChart)
+            // this.dashboardComponent.startAnimationForBarChart(dailySalesChart)
 
         });
 
 
     }
 
-    startAnimationForLineChart(chart) {
-        let seq: any, delays: any, durations: any;
-        seq = 0;
-        delays = 80;
-        durations = 500;
-
-        chart.on('draw', function (data) {
-            if (data.type === 'line' || data.type === 'area') {
-                data.element.animate({
-                    d: {
-                        begin: 600,
-                        dur: 700,
-                        from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-                        to: data.path.clone().stringify(),
-                        easing: Chartist.Svg.Easing.easeOutQuint
-                    }
-                });
-            } else if (data.type === 'point') {
-                seq++;
-                data.element.animate({
-                    opacity: {
-                        begin: seq * delays,
-                        dur: durations,
-                        from: 0,
-                        to: 1,
-                        easing: 'ease'
-                    }
-                });
-            }
-        });
-
-        seq = 0;
-    };
-
-
+    reset() {
+        this.ngOnInit();
+    }
 }

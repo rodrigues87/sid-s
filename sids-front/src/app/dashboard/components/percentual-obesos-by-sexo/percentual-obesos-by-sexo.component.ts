@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {PessoaImcMedioFaixaEtaria} from '../../models/pessoa-imc-medio-faixa-etaria-dto.model';
+import {Component, OnInit} from '@angular/core';
 import {PessoaService} from '../../services/pessoa.service';
 import {PercentualDeObesosBySexo} from '../../models/percentual-de-obesos-by-sexo.model';
-import * as Chartist from 'chartist';
 
 @Component({
   selector: 'app-percentual-obesos-by-sexo',
@@ -20,6 +18,7 @@ export class PercentualObesosBySexoComponent implements OnInit {
 
   ngOnInit(): void {
     this.pessoaService.getPersentualObesosBySexo().subscribe(res => {
+
       this.percentualDeObesosBySexoList = res;
 
 
@@ -34,13 +33,15 @@ export class PercentualObesosBySexoComponent implements OnInit {
         }
 
 
-
       });
 
 
     });
 
 
+  }
 
+  reset() {
+    this.ngOnInit();
   }
 }

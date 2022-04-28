@@ -1,10 +1,9 @@
 package com.sids.dtos;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
-import java.util.Date;
+import java.util.*;
 
 @Data
 public class PessoaDto {

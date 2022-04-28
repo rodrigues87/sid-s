@@ -1,13 +1,12 @@
 package com.sids.controllers;
 
 
-import com.sids.dtos.TipoSanguineoDto;
-import com.sids.models.TipoSanguineo;
-import com.sids.services.TipoSanguineoService;
-import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.sids.dtos.*;
+import com.sids.models.*;
+import com.sids.services.*;
+import lombok.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

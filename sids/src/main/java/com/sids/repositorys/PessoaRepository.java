@@ -1,15 +1,10 @@
 package com.sids.repositorys;
 
-import com.sids.jpaInterfaces.MediaIdadeByTipoSanguineo;
-import com.sids.jpaInterfaces.PercentualDeObesosBySexo;
-import com.sids.jpaInterfaces.QuantidadeCandidatosPorEstado;
-import com.sids.jpaInterfaces.QuantidadeDoadoresPorTipoSanguineo;
-import com.sids.models.Pessoa;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.scheduling.annotation.Async;
+import com.sids.jpaInterfaces.*;
+import com.sids.models.*;
+import org.springframework.data.jpa.repository.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
     Pessoa findByCpf(String cpf);
@@ -49,7 +44,6 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
             "     tipo_sanguineo t", nativeQuery = true)
     List<QuantidadeDoadoresPorTipoSanguineo> findQuantidadeDoadoresPorTipoSanguineo();
 
-    @Async
     @Query(value = "select\n" +
             "    COUNT(p.tipo_sanguineo_id)\n" +
             "from pessoa p where TIMESTAMPDIFF(year, data_nasc, now()) BETWEEN 16 AND 69\n" +
@@ -57,4 +51,5 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
     int quantidadeDoadoresAptos();
 
     List<Pessoa> findAllByOrderByDataNasc();
+
 }

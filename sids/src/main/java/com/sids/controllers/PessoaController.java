@@ -1,24 +1,15 @@
 package com.sids.controllers;
 
 
-import com.sids.dtos.PessoaDto;
-import com.sids.models.Pessoa;
-import com.sids.services.PessoaService;
-import lombok.SneakyThrows;
-import org.hibernate.service.spi.ServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.*;
+import com.sids.dtos.*;
+import com.sids.services.*;
+import lombok.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import org.springframework.web.multipart.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import java.util.*;
 
 @RestController
 @RequestMapping("/pessoas")

@@ -23,6 +23,8 @@ export class MediaIdadePorTipoSanguineoComponent implements OnInit {
 
 
         this.pessoaService.getMediaIdadeByTipoSanguineo().subscribe(res => {
+            this.labels = [];
+            this.series = [];
             this.mediaDeIdadePorTipoSanguineolist = res;
 
             this.mediaDeIdadePorTipoSanguineolist.forEach(mediaDeIdadePorTipoSanguineo => {
@@ -45,18 +47,20 @@ export class MediaIdadePorTipoSanguineoComponent implements OnInit {
                 low: 0,
                 high: Math.max(...this.series),
                 chartPadding: {top: 0, right: 0, bottom: 0, left: 0},
-                height: '250px',
+                height: '230px',
 
             }
 
             const dailySalesChart = new Chartist.Bar('#mediaIdadePorTipoSanguineo', dataDailySalesChart, optionsDailySalesChart);
 
-            this.dashboardComponent.startAnimationForLineChart(dailySalesChart)
+            //  this.dashboardComponent.startAnimationForBarChart(dailySalesChart)
 
         });
 
 
     }
 
-
+    reset() {
+        this.ngOnInit();
+    }
 }

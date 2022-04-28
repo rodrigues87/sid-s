@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {PessoaService} from '../../services/pessoa.service';
-import {WebSocketService} from '../../../service/web-socket-service.service';
 
 @Component({
     selector: 'app-total-de-candidatos',
@@ -9,33 +8,37 @@ import {WebSocketService} from '../../../service/web-socket-service.service';
 })
 export class TotalDeCandidatosComponent implements OnInit {
 
+
     public quantidadeTotalDeCandidatos: number;
     public quantidadeDoadoresAptos: number;
 
 
-    constructor(private pessoaService: PessoaService,
-                private webSocketService: WebSocketService) {
+    constructor(private pessoaService: PessoaService) {
 
-        const stompClient = this.webSocketService.connect();
-        stompClient.connect({}, frame => {
-
-            stompClient.subscribe('/topic/quantidadeDoadoresAptos', ress => {
-
-                this.quantidadeDoadoresAptos = ress.body
-            })
-        });
     }
 
     ngOnInit(): void {
 
+        this.getQuantidadeTotalDeCandidatos();
+
+        this.getQuantidadeDoadoresAptos();
+
+    }
+
+    reset() {
+        this.ngOnInit();
+    }
+
+    private getQuantidadeTotalDeCandidatos() {
         this.pessoaService.countAll().subscribe(res => {
             this.quantidadeTotalDeCandidatos = res;
         });
+    }
 
+    private getQuantidadeDoadoresAptos() {
         this.pessoaService.quantidadeDoadoresAptos().subscribe(res => {
             this.quantidadeDoadoresAptos = res;
         });
 
     }
-
 }

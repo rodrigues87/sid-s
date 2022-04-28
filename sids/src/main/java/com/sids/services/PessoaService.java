@@ -1,26 +1,21 @@
 package com.sids.services;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.CollectionType;
-import com.sids.dtos.PessoaDto;
-import com.sids.dtos.PessoaImcDto;
-import com.sids.dtos.PessoaImcMedioFaixaEtariaDto;
-import com.sids.jpaInterfaces.MediaIdadeByTipoSanguineo;
-import com.sids.jpaInterfaces.PercentualDeObesosBySexo;
-import com.sids.jpaInterfaces.QuantidadeDoadoresPorTipoSanguineo;
-import com.sids.models.Pessoa;
-import com.sids.models.TipoSanguineo;
-import com.sids.repositorys.PessoaRepository;
-import com.sids.tools.Constantes;
-import javassist.tools.rmi.ObjectNotFoundException;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.type.*;
+import com.sids.dtos.*;
+import com.sids.jpaInterfaces.*;
+import com.sids.models.*;
+import com.sids.repositorys.*;
+import com.sids.tools.*;
+import javassist.tools.rmi.*;
+import org.springframework.beans.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.messaging.simp.*;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.stereotype.*;
+import org.springframework.web.multipart.*;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 @Service
@@ -71,13 +66,11 @@ public class PessoaService {
 
         pessoa.setTipoSanguineo(tipoSanguineo);
 
+        pessoa = pessoaRepository.save(pessoa);
 
-        int quantidadeDoadoresAptos = this.quantidadeDoadoresAptos();
+        template.convertAndSend("/pessoa/save", "teste");
 
-        template.convertAndSend("/topic/quantidadeDoadoresAptos", quantidadeDoadoresAptos);
-
-
-        return pessoaRepository.save(pessoa);
+        return pessoa;
     }
 
     private Pessoa findByCpf(String cpf) {

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {PercentualDeObesosBySexo} from '../../models/percentual-de-obesos-by-sexo.model';
+import {Component, OnInit} from '@angular/core';
 import {PessoaService} from '../../services/pessoa.service';
 import {QuantidadeDoadoresPorTipoSanguineo} from '../../models/quantidade-doadores-por-tipo-sanguineo.model';
 
@@ -14,10 +13,15 @@ export class QuantidadeDoadoresPorTipoSanguineoComponent implements OnInit {
 
   constructor(private pessoaService: PessoaService) {
   }
+
   ngOnInit(): void {
     this.pessoaService.getQuantidadePossiveisDoadores().subscribe(res => {
       this.quantidadeDoadoresPorTipoSanguineolist = res;
     });
+  }
+
+  reset() {
+    this.ngOnInit();
   }
 
 }

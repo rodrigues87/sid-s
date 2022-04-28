@@ -1,7 +1,19 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import * as Chartist from 'chartist';
-import {PessoaService} from './services/pessoa.service';
-import {Router} from '@angular/router';
+import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {WebSocketService} from '../service/web-socket-service.service';
+import {TotalDeCandidatosComponent} from './components/total-de-candidatos/total-de-candidatos.component';
+import {
+    QuantidadeDoadoresPorTipoSanguineoComponent
+} from './components/quantidade-doadores-por-tipo-sanguineo/quantidade-doadores-por-tipo-sanguineo.component';
+import {
+    PercentualObesosBySexoComponent
+} from './components/percentual-obesos-by-sexo/percentual-obesos-by-sexo.component';
+import {
+    MediaIdadePorTipoSanguineoComponent
+} from './components/media-idade-por-tipo-sanguineo/media-idade-por-tipo-sanguineo.component';
+import {
+    ImcMedioPorFaixaEtariaComponent
+} from './components/imc-medio-por-faixa-etaria/imc-medio-por-faixa-etaria.component';
+import {CandidatosPorEstadoComponent} from './components/candidatos-por-estado/candidatos-por-estado.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -10,12 +22,43 @@ import {Router} from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-    public quantidadeTotalDeCandidatos: number;
+    @ViewChildren(TotalDeCandidatosComponent) totalDeCandidatosComponents: QueryList<TotalDeCandidatosComponent>
+    @ViewChildren(QuantidadeDoadoresPorTipoSanguineoComponent) quantidadeDoadoresPorTipoSanguineoComponents: QueryList<QuantidadeDoadoresPorTipoSanguineoComponent>
+    @ViewChildren(PercentualObesosBySexoComponent) percentualObesosBySexoComponents: QueryList<PercentualObesosBySexoComponent>
+    @ViewChildren(MediaIdadePorTipoSanguineoComponent) mediaIdadePorTipoSanguineoComponents: QueryList<MediaIdadePorTipoSanguineoComponent>
+    @ViewChildren(ImcMedioPorFaixaEtariaComponent) imcMedioPorFaixaEtariaComponents: QueryList<ImcMedioPorFaixaEtariaComponent>
+    @ViewChildren(CandidatosPorEstadoComponent) candidatosPorEstadoComponents: QueryList<CandidatosPorEstadoComponent>
 
-    constructor(private pessoaService: PessoaService,
-                private router: Router) {
+    constructor(private webSocketService: WebSocketService) {
+        this.startWebSocket();
     }
 
+    ngOnInit() {
+    }
+
+    resetAll() {
+        this.totalDeCandidatosComponents.forEach(c => c.reset());
+        this.quantidadeDoadoresPorTipoSanguineoComponents.forEach(c => c.reset());
+        this.percentualObesosBySexoComponents.forEach(c => c.reset());
+        this.mediaIdadePorTipoSanguineoComponents.forEach(c => c.reset());
+        this.imcMedioPorFaixaEtariaComponents.forEach(c => c.reset());
+        this.candidatosPorEstadoComponents.forEach(c => c.reset());
+
+    }
+
+    private startWebSocket() {
+        const stompClient = this.webSocketService.connect();
+        stompClient.connect({}, frame => {
+
+            stompClient.subscribe('/pessoa/save', ress => {
+
+                this.resetAll();
+
+            })
+        });
+    }
+
+    /*
     startAnimationForLineChart(chart) {
         let seq: any, delays: any, durations: any;
         seq = 0;
@@ -73,19 +116,5 @@ export class DashboardComponent implements OnInit {
 
         seq2 = 0;
     };
-
-    ngOnInit() {
-/*
-        this.pessoaService.countAll().subscribe(res => {
-            this.quantidadeTotalDeCandidatos = res;
-            if (this.quantidadeTotalDeCandidatos === 0) {
-                this.router.navigate(['/importacao/']);
-
-            }
-        });
-
- */
-    }
-
-
+*/
 }

@@ -26,20 +26,8 @@ export class ImportacaoComponent {
         this.pessoaService.uploadFileCandidatos(file).subscribe(ress => {
             if (ress !== null) {
 
-                this.aguardar = true;
-
-                setTimeout(() => {
-                    this.aguardar = false;
-                    this.router.navigate(['/dashboard'])
-                }, 6000)
-
+                this.router.navigate(['/dashboard'])
             }
-
-
         });
-
-
     }
-
-
 }

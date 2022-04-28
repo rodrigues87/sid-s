@@ -1,9 +1,8 @@
 package com.sids.dtos;
 
-import lombok.Data;
+import lombok.*;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.math.*;
 
 @Data
 public class PessoaImcMedioFaixaEtariaDto implements Comparable<PessoaImcMedioFaixaEtariaDto> {

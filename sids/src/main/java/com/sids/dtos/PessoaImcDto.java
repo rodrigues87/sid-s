@@ -1,13 +1,10 @@
 package com.sids.dtos;
 
-import lombok.Data;
-import lombok.extern.log4j.Log4j2;
+import lombok.*;
+import lombok.extern.log4j.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.text.*;
+import java.util.*;
 
 
 @Data
