@@ -4,7 +4,8 @@
     * É necessário executar os scripts na pasta sqls, 
     antes de inicar o projeto
 
-    * Os script devem ser executados na ordem 01,02,03
+    * Os script devem ser executados na ordem 01,02,03.
+    * application-dev está configurado para executar os script a cada inicialização', basta remover quando necessário
 
 ##Dicionário
     Tipo sanguineo: é a classificação dada a um tipo de
